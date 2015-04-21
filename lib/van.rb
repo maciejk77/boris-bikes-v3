@@ -1,6 +1,6 @@
 class Van
 
-  attr_reader :bikes
+  attr_reader :bikes, :capacity
 
   DEFAULT_CAPACITY = 10
 
@@ -9,11 +9,8 @@ class Van
   @bikes = []
   end
 
-  def capacity
-    @capacity
-  end
-
   def load(bike)
+    raise "Van is full" if full?
     bikes << bike
   end
 
@@ -21,8 +18,8 @@ class Van
     bikes.delete(bike)
   end
 
-  def bikes
-    @bikes
+  def full?
+    bikes.count == capacity
   end
 
 end

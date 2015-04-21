@@ -13,7 +13,12 @@ class DockingStation
     !@bikes.empty?
   end
 
+  def available_bikes
+    @bikes.select(&:working?)
+  end
+
   def dock(bike)
+    raise "Docking station is full" if full?
     raise "You can only dock bikes" unless bike.respond_to? :working?
     @bikes << bike
   end
@@ -22,7 +27,8 @@ class DockingStation
     @bikes.delete(bike)
   end
 
-  def available_bikes
-    @bikes.select(&:working?)
+  def full?
+    @bikes.count == capacity
   end
+
 end

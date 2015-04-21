@@ -24,5 +24,19 @@ describe Van do
     van.release(bike)
     expect(van.bikes).to eq []
   end
+
+  it 'knows if it is full' do
+    10.times{van.load(bike) }
+    expect(van).to be_full
+  end
+
+  it 'knows if it is not full' do
+    expect(van).not_to be_full
+  end
+
+  it 'should not load a bike if full' do
+    10.times { van.load(bike) }
+    expect{ van.load(bike) }.to raise_error "Van is full"
+  end
   
 end
